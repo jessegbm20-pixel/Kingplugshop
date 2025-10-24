@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>KingPlugShop — Productos Apple</title>
+  <style>
+    :root{{--beige:#f5f0e6; --blue:#03399e; --dark:#000; --muted:#666;}}
+    body{{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--beige);color:#111;}}
+    header{{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:rgba(255,255,255,0.7);backdrop-filter:blur(6px);border-bottom:1px solid #e6e0d8;}}
+    .brand{{display:flex;align-items:center;gap:12px}}
+    .brand img{{height:56px}}
+    nav a{{margin-left:14px;text-decoration:none;color:var(--blue);font-weight:600}}
+    .hero{{padding:48px 20px;text-align:center;background-image:url('logo.png');background-size:cover;background-position:center;color:white}}
+    .hero .overlay{{background:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.2));padding:48px;border-radius:8px;display:inline-block;max-width:900px}}
+    .hero h1{{margin:0;font-size:28px}}
+    .hero p{{margin-top:8px;color:#f0f0f0}}
+    main{{max-width:1000px;margin:24px auto;padding:0 16px}}
+    .products{{display:block;gap:18px}}
+    .product{{display:flex;gap:18px;background:white;border-radius:8px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,0.06);margin-bottom:18px}}
+    .product img{{width:40%;height:auto;object-fit:cover}}
+    .pinfo{{padding:18px;flex:1;display:flex;flex-direction:column;justify-content:space-between}}
+    .pinfo h3{{margin:0 0 6px 0}}
+    .pinfo p{{margin:0 0 12px 0;color:var(--muted)}}
+    .price{{font-weight:700;color:var(--blue)}}
+    .addbtn{{padding:10px 14px;border-radius:8px;background:var(--blue);color:white;border:none;font-weight:700;cursor:pointer}}
+    .cart{{position:fixed;right:18px;bottom:18px;background:var(--blue);color:white;padding:12px 16px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,0.2);cursor:pointer}}
+    footer{{text-align:center;padding:18px;color:#555;background:rgba(255,255,255,0.6);margin-top:24px}}
+    @media(max-width:720px){{ .product{{flex-direction:column}} .product img{{width:100%;height:220px}} header nav{{display:none}} }}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <img src="logo.png" alt="KingPlugShop logo" />
+      <div>
+        <div style="font-weight:800;color:var(--blue)">KingPlugShop</div>
+        <div style="font-size:13px;color:var(--muted)">Ventas de un poco de todo — productos Apple y más</div>
+      </div>
+    </div>
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#productos">Productos</a>
+      <a href="#contacto">Contacto</a>
+      <a href="https://www.instagram.com/jessefp12320?igsh=MTQ0ZmdndG1kN240bg==" target="_blank">Instagram</a>
+    </nav>
+  </header>
+
+  <section id="inicio" class="hero" role="banner" aria-label="Inicio">
+    <div class="overlay">
+      <h1>Bienvenido a KingPlugShop — Tu proveedor de confianza en productos Apple</h1>
+      <p>AirPods, cables Lightning, audífonos y bocinas. Envíos con Estafeta u otras paqueterías. Sin garantía. Posibles demoras.</p>
+    </div>
+  </section>
+
+  <main>
+    <section id="productos">
+      <h2 style="color:var(--blue);margin-bottom:12px">Productos</h2>
+      <div class="products" id="productsList">
+      </div>
+    </section>
+
+    <section id="contacto" style="margin-top:20px">
+      <h2 style="color:var(--blue)">Contacto</h2>
+      <p>WhatsApp: <a href="https://wa.me/5218715728494">+52 871 572 8494</a></p>
+      <p>Instagram: <a href="https://www.instagram.com/jessefp12320?igsh=MTQ0ZmdndG1kN240bg==">jessefp12320</a></p>
+      <p style="color:#555;margin-top:8px">Políticas: Envío por Estafeta u otras paqueterías. El tiempo de entrega puede variar y en ocasiones ser mayor al estimado. Los productos se entregan sin garantía; revisa el paquete al recibirlo.</p>
+    </section>
+  </main>
+
+  <button class="cart" id="cartBtn">Carrito (0)</button>
+
+  <footer>
+    © 2025 KingPlugShop — Hecho con ❤️
+  </footer>
+
+  <script>
+    const products = [
+      {{
+        id:1,
+        name:"AirPods Pro (2ª Gen) - Originales",
+        price:1999,
+        img:"airpods.png",
+        desc:"AirPods Pro originales. Envío con Estafeta u otras paqueterías. Sin garantía."
+      }},
+      {{
+        id:2,
+        name:"Cable de carga Apple Lightning",
+        price:299,
+        img:"cable.png",
+        desc:"Cable Lightning oficial compatible con iPhone/iPad."
+      }},
+      {{
+        id:3,
+        name:"Bocina Bluetooth",
+        price:699,
+        img:"speaker.png",
+        desc:"Bocina portátil con buen sonido, ideal para iPhone."
+      }}
+    ];
+
+    const productsList = document.getElementById('productsList');
+    const cartBtn = document.getElementById('cartBtn');
+
+    function renderProducts(){
+      products.forEach(p => {
+        const div = document.createElement('article');
+        div.className = 'product';
+        div.innerHTML = `
+          <img src="${p.img}" alt="${p.name}" />
+          <div class="pinfo">
+            <div>
+              <h3>${p.name}</h3>
+              <p class="price">$${p.price} MXN</p>
+              <p>${p.desc}</p>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <button class="addbtn" onclick="addToCart(${p.id})">Agregar al carrito</button>
+              <a class="addbtn" style="background:#fff;color:var(--blue);border:1px solid var(--blue);text-decoration:none;padding:10px 12px;border-radius:8px" href="https://wa.me/5218715728494?text=Quiero%20info%20de%20${encodeURIComponent(p.name)}" target="_blank">Pedir por WhatsApp</a>
+            </div>
+          </div>
+        `;
+        productsList.appendChild(div);
+      });
+    }
+
+    let cart = JSON.parse(localStorage.getItem('kps_cart')||'[]');
+    function updateCartUI(){ cartBtn.textContent = `Carrito (${cart.length})`; localStorage.setItem('kps_cart', JSON.stringify(cart)); }
+    function addToCart(id){
+      const p = products.find(x=>x.id===id);
+      if(p){ cart.push(p); updateCartUI(); alert(p.name + " agregado al carrito"); }
+    }
+    cartBtn.addEventListener('click', ()=> {
+      if(cart.length===0){ alert('Tu carrito está vacío'); return; }
+      let text = 'Hola, quiero hacer el pedido:%0A';
+      let total = 0;
+      cart.forEach((it, i) => { text += `${i+1}. ${it.name} - $${it.price} MXN%0A`; total += it.price; });
+      text += `%0ATotal: $${total} MXN%0A%0AMis datos: (nombre, dirección)`;
+      const wa = 'https://wa.me/5218715728494?text=' + text;
+      if(confirm('Abrir chat de WhatsApp para completar tu pedido?')) window.open(wa,'_blank');
+    });
+
+    renderProducts();
+    updateCartUI();
+  </script>
+</body>
+</html>
